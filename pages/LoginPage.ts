@@ -16,9 +16,15 @@ export class LoginPage{
         this.errorMessage = page.locator('[data-test="error"]');
     }
 
-    async navigate(): Promise<void>{
-        await this.page.goto('/');
-    }
+    async navigate(): Promise<void> {
+  await this.page.goto('/', {
+    waitUntil: 'domcontentloaded',
+  });
+
+  await this.usernameInput.waitFor({
+    state: 'visible',
+  });
+}
 
     async enterPassword(password: string): Promise<void>{
         await this.passwordInput.fill(password);
